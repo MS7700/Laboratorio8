@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="InsertarCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="apellido" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaNacimiento" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertarClienteResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ModificarEstado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModificarEstadoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerClientes">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtenerClientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerClientesResult" type="tns:ArrayOfCliente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCliente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cliente" nillable="true" type="tns:Cliente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cliente">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Apellido" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha_Nacimiento" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstaActivo" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="EliminarCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarClienteResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="InsertarClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertarCliente" />
+  </wsdl:message>
+  <wsdl:message name="InsertarClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModificarEstadoSoapIn">
+    <wsdl:part name="parameters" element="tns:ModificarEstado" />
+  </wsdl:message>
+  <wsdl:message name="ModificarEstadoSoapOut">
+    <wsdl:part name="parameters" element="tns:ModificarEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerClientesSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerClientes" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerClientesSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerClientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarCliente" />
+  </wsdl:message>
+  <wsdl:message name="EliminarClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarClienteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ClienteSoap">
+    <wsdl:operation name="InsertarCliente">
+      <wsdl:input message="tns:InsertarClienteSoapIn" />
+      <wsdl:output message="tns:InsertarClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstado">
+      <wsdl:input message="tns:ModificarEstadoSoapIn" />
+      <wsdl:output message="tns:ModificarEstadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerClientes">
+      <wsdl:input message="tns:ObtenerClientesSoapIn" />
+      <wsdl:output message="tns:ObtenerClientesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCliente">
+      <wsdl:input message="tns:EliminarClienteSoapIn" />
+      <wsdl:output message="tns:EliminarClienteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ClienteSoap" type="tns:ClienteSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsertarCliente">
+      <soap:operation soapAction="http://tempuri.org/InsertarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstado">
+      <soap:operation soapAction="http://tempuri.org/ModificarEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerClientes">
+      <soap:operation soapAction="http://tempuri.org/ObtenerClientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCliente">
+      <soap:operation soapAction="http://tempuri.org/EliminarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ClienteSoap12" type="tns:ClienteSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsertarCliente">
+      <soap12:operation soapAction="http://tempuri.org/InsertarCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarEstado">
+      <soap12:operation soapAction="http://tempuri.org/ModificarEstado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerClientes">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerClientes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCliente">
+      <soap12:operation soapAction="http://tempuri.org/EliminarCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Cliente">
+    <wsdl:port name="ClienteSoap" binding="tns:ClienteSoap">
+      <soap:address location="https://localhost:44384/WebService/Cliente.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ClienteSoap12" binding="tns:ClienteSoap12">
+      <soap12:address location="https://localhost:44384/WebService/Cliente.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
